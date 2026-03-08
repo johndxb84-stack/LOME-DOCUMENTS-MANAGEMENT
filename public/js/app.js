@@ -17,6 +17,10 @@ function navigate(page) {
   if (navLink) navLink.classList.add('active');
 
   window.location.hash = page;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Close mobile nav if open
+  document.querySelector('.top-nav').classList.remove('nav-open');
 
   // Load data for the page
   if (page === 'landing') loadStats();
@@ -66,12 +70,26 @@ function formatDate(dateStr) {
 }
 
 // ---- Stats ----
+function animateCount(el, target) {
+  const duration = 800;
+  const start = performance.now();
+  const from = 0;
+  function update(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.round(from + (target - from) * eased);
+    if (progress < 1) requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+}
+
 async function loadStats() {
   try {
     const stats = await api('/api/stats');
-    document.getElementById('stat-products').textContent = stats.totalProducts;
-    document.getElementById('stat-documents').textContent = stats.totalDocuments;
-    document.getElementById('stat-downloads').textContent = stats.totalDownloads;
+    animateCount(document.getElementById('stat-products'), stats.totalProducts);
+    animateCount(document.getElementById('stat-documents'), stats.totalDocuments);
+    animateCount(document.getElementById('stat-downloads'), stats.totalDownloads);
   } catch (e) {
     console.error('Failed to load stats:', e);
   }
