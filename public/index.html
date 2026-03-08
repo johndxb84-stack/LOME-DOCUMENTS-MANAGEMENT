@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LOME | Regulatory Documents Management</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+  <!-- ====== TOP NAVIGATION ====== -->
+  <nav class="top-nav">
+    <div class="nav-brand">
+      <span class="brand-accent">L'ORÉAL</span> <span>MIDDLE EAST</span>
+    </div>
+    <div class="nav-links">
+      <a onclick="navigate('landing')" data-page="landing">Home</a>
+      <a onclick="navigate('admin')" data-page="admin">Admin Portal</a>
+      <a onclick="navigate('distributor')" data-page="distributor">Distributor Portal</a>
+    </div>
+  </nav>
+
+  <!-- ====== LANDING PAGE ====== -->
+  <div id="page-landing" class="page active">
+    <div class="landing-hero">
+      <h1>Regulatory <span>Documents</span> Portal</h1>
+      <p class="subtitle">Centralized document management for GCC & Levant product registrations</p>
+      <div class="landing-cards">
+        <div class="landing-card" onclick="navigate('admin')">
+          <div class="card-icon">&#128274;</div>
+          <h3>Admin Portal</h3>
+          <p>Manage product catalogue, upload regulatory documents (CoA, SDS, GMP, PIF, Halal certificates, and more) for your team.</p>
+        </div>
+        <div class="landing-card" onclick="navigate('distributor')">
+          <div class="card-icon">&#128269;</div>
+          <h3>Distributor Portal</h3>
+          <p>Search products by formula code or barcode. Download the documents you need for authority submissions.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="landing-stats" id="landing-stats">
+      <div class="stat-box">
+        <div class="stat-number" id="stat-products">-</div>
+        <div class="stat-label">Products</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number" id="stat-documents">-</div>
+        <div class="stat-label">Documents</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number" id="stat-downloads">-</div>
+        <div class="stat-label">Downloads</div>
+      </div>
+    </div>
+
+    <div class="landing-info">
+      <h2>Serving the GCC & Levant Region</h2>
+      <p>Our regulatory affairs team ensures that all required scientific and regulatory documents are available for distributors to register L'Oréal products with local authorities across the region.</p>
+      <div class="region-tags">
+        <span class="region-tag">UAE</span>
+        <span class="region-tag">Saudi Arabia</span>
+        <span class="region-tag">Kuwait</span>
+        <span class="region-tag">Qatar</span>
+        <span class="region-tag">Bahrain</span>
+        <span class="region-tag">Oman</span>
+        <span class="region-tag">Jordan</span>
+        <span class="region-tag">Lebanon</span>
+        <span class="region-tag">Iraq</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== ADMIN PORTAL ====== -->
+  <div id="page-admin" class="page">
+    <div class="page-content">
+      <div class="page-header">
+        <h2>Admin Portal &mdash; Manage Products &amp; Documents</h2>
+        <button class="btn btn-gold" onclick="openModal('product-modal')">+ Add New Product</button>
+      </div>
+
+      <!-- Search -->
+      <div class="search-container">
+        <div class="search-row">
+          <div class="search-input-wrap">
+            <span class="search-icon">&#128269;</span>
+            <input type="text" id="admin-search" placeholder="Search products by name, formula code, or barcode..." oninput="loadAdminProducts()">
+          </div>
+          <select class="filter-select" id="admin-brand-filter" onchange="loadAdminProducts()">
+            <option value="">All Brands</option>
+          </select>
+          <select class="filter-select" id="admin-category-filter" onchange="loadAdminProducts()">
+            <option value="">All Categories</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Products Grid -->
+      <div class="products-grid" id="admin-products-grid"></div>
+    </div>
+  </div>
+
+  <!-- ====== ADMIN: PRODUCT DETAIL ====== -->
+  <div id="page-admin-detail" class="page">
+    <div class="page-content">
+      <div class="product-detail-header">
+        <span class="back-link" onclick="navigate('admin')">&larr; Back to Products</span>
+        <div class="detail-brand" id="detail-brand"></div>
+        <h2 id="detail-name"></h2>
+        <div class="product-detail-meta">
+          <div><strong>Formula Code:</strong> <span id="detail-formula"></span></div>
+          <div><strong>Barcode:</strong> <span id="detail-barcode"></span></div>
+          <div><strong>Category:</strong> <span id="detail-category"></span></div>
+        </div>
+        <p style="margin-top: 12px; color: #666;" id="detail-description"></p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span>Documents</span>
+          <button class="btn btn-gold btn-sm" onclick="openUploadModal()">+ Upload Document</button>
+        </div>
+        <div class="card-body">
+          <div id="detail-documents"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== DISTRIBUTOR PORTAL ====== -->
+  <div id="page-distributor" class="page">
+    <div class="page-content">
+      <div class="page-header">
+        <h2>Distributor Portal &mdash; Find Product Documents</h2>
+      </div>
+
+      <div class="search-container">
+        <div class="search-row">
+          <div class="search-input-wrap">
+            <span class="search-icon">&#128269;</span>
+            <input type="text" id="dist-search" placeholder="Enter product formula code, barcode, or name to search..." oninput="loadDistributorProducts()">
+          </div>
+          <select class="filter-select" id="dist-brand-filter" onchange="loadDistributorProducts()">
+            <option value="">All Brands</option>
+          </select>
+          <select class="filter-select" id="dist-category-filter" onchange="loadDistributorProducts()">
+            <option value="">All Categories</option>
+          </select>
+        </div>
+        <p class="search-hint">Search by formula code (e.g., LP-RVL-X3-DC-001) or barcode (e.g., 3600523456789) to find all available regulatory documents.</p>
+      </div>
+
+      <div class="products-grid" id="dist-products-grid"></div>
+    </div>
+  </div>
+
+  <!-- ====== DISTRIBUTOR: PRODUCT DETAIL ====== -->
+  <div id="page-dist-detail" class="page">
+    <div class="page-content">
+      <div class="product-detail-header">
+        <span class="back-link" onclick="navigate('distributor')">&larr; Back to Search</span>
+        <div class="detail-brand" id="dist-detail-brand"></div>
+        <h2 id="dist-detail-name"></h2>
+        <div class="product-detail-meta">
+          <div><strong>Formula Code:</strong> <span id="dist-detail-formula"></span></div>
+          <div><strong>Barcode:</strong> <span id="dist-detail-barcode"></span></div>
+          <div><strong>Category:</strong> <span id="dist-detail-category"></span></div>
+        </div>
+        <p style="margin-top: 12px; color: #666;" id="dist-detail-description"></p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span>Available Documents for Download</span>
+        </div>
+        <div class="card-body">
+          <div id="dist-detail-documents"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== ADD PRODUCT MODAL ====== -->
+  <div class="modal-overlay" id="product-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Add New Product</h3>
+        <button class="modal-close" onclick="closeModal('product-modal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="product-form" onsubmit="submitProduct(event)">
+          <div class="form-group">
+            <label>Product Name *</label>
+            <input type="text" name="name" required placeholder="e.g., L'Oréal Paris Revitalift Day Cream">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Brand *</label>
+              <select name="brand" required>
+                <option value="">Select brand...</option>
+                <option>L'Oréal Paris</option>
+                <option>Garnier</option>
+                <option>Maybelline New York</option>
+                <option>NYX Professional Makeup</option>
+                <option>La Roche-Posay</option>
+                <option>Vichy</option>
+                <option>CeraVe</option>
+                <option>Kérastase</option>
+                <option>L'Oréal Professionnel</option>
+                <option>Lancôme</option>
+                <option>Yves Saint Laurent</option>
+                <option>Giorgio Armani</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Category *</label>
+              <select name="category" required>
+                <option value="">Select category...</option>
+                <option>Skincare</option>
+                <option>Haircare</option>
+                <option>Makeup</option>
+                <option>Fragrance</option>
+                <option>Hair Color</option>
+                <option>Sun Care</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Formula Code *</label>
+              <input type="text" name="formula_code" required placeholder="e.g., LP-RVL-DC-014">
+            </div>
+            <div class="form-group">
+              <label>Barcode (EAN) *</label>
+              <input type="text" name="barcode" required placeholder="e.g., 3600523456789">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <textarea name="description" placeholder="Product description..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-gold" style="width:100%;">Add Product</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== UPLOAD DOCUMENT MODAL ====== -->
+  <div class="modal-overlay" id="upload-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Upload Document</h3>
+        <button class="modal-close" onclick="closeModal('upload-modal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="upload-form" onsubmit="submitDocument(event)">
+          <input type="hidden" name="product_id" id="upload-product-id">
+          <div class="form-group">
+            <label>Document Type *</label>
+            <select name="document_type_id" id="upload-doc-type" required></select>
+          </div>
+          <div class="form-group">
+            <label>Document Title *</label>
+            <input type="text" name="title" required placeholder="e.g., CoA - Batch 2024-Q1">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Version</label>
+              <input type="text" name="version" value="1.0" placeholder="1.0">
+            </div>
+            <div class="form-group">
+              <label>Expiry Date</label>
+              <input type="date" name="expiry_date">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Country / Region Scope</label>
+            <select name="country_scope">
+              <option>GCC & Levant</option>
+              <option>UAE</option>
+              <option>Saudi Arabia</option>
+              <option>Kuwait</option>
+              <option>Qatar</option>
+              <option>Bahrain</option>
+              <option>Oman</option>
+              <option>Jordan</option>
+              <option>Lebanon</option>
+              <option>Iraq</option>
+              <option>All Markets</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>File * (PDF, DOC, XLS, JPG, PNG, ZIP - Max 50MB)</label>
+            <input type="file" name="file" required accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.zip">
+          </div>
+          <button type="submit" class="btn btn-gold" style="width:100%;">Upload Document</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== FOOTER ====== -->
+  <div class="footer">
+    <span>L'ORÉAL</span> Middle East &mdash; Regulatory Documents Management System &mdash; Prototype v1.0
+  </div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>

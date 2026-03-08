@@ -1,0 +1,736 @@
+/* ================================================
+   LOME Documents Management - Styles
+   L'Oréal Middle East Regulatory Portal
+   ================================================ */
+
+:root {
+  --loreal-black: #1a1a1a;
+  --loreal-gold: #c5a55a;
+  --loreal-gold-light: #d4b96e;
+  --loreal-dark: #0d0d0d;
+  --loreal-gray: #f5f5f5;
+  --loreal-gray-mid: #e0e0e0;
+  --loreal-gray-dark: #666;
+  --loreal-white: #ffffff;
+  --accent-blue: #2563eb;
+  --accent-green: #16a34a;
+  --accent-red: #dc2626;
+  --accent-orange: #ea580c;
+  --shadow: 0 2px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.12);
+  --radius: 10px;
+  --transition: all 0.3s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--loreal-gray);
+  color: var(--loreal-black);
+  min-height: 100vh;
+}
+
+/* ---- Top Navigation ---- */
+.top-nav {
+  background: var(--loreal-black);
+  color: var(--loreal-white);
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.nav-brand .brand-accent {
+  color: var(--loreal-gold);
+}
+
+.nav-links {
+  display: flex;
+  gap: 4px;
+}
+
+.nav-links a {
+  color: #aaa;
+  text-decoration: none;
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.nav-links a:hover, .nav-links a.active {
+  color: var(--loreal-white);
+  background: rgba(255,255,255,0.1);
+}
+
+.nav-links a.active {
+  border-bottom: 2px solid var(--loreal-gold);
+}
+
+/* ---- Landing Page ---- */
+.landing-hero {
+  background: linear-gradient(135deg, var(--loreal-black) 0%, #2d2d2d 100%);
+  color: white;
+  padding: 80px 2rem;
+  text-align: center;
+}
+
+.landing-hero h1 {
+  font-size: 2.8rem;
+  font-weight: 300;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+.landing-hero h1 span {
+  color: var(--loreal-gold);
+  font-weight: 600;
+}
+
+.landing-hero .subtitle {
+  font-size: 1.2rem;
+  color: #aaa;
+  margin-bottom: 40px;
+  font-weight: 300;
+}
+
+.landing-cards {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.landing-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius);
+  padding: 40px 30px;
+  width: 340px;
+  cursor: pointer;
+  transition: var(--transition);
+  text-align: left;
+}
+
+.landing-card:hover {
+  transform: translateY(-4px);
+  background: rgba(255,255,255,0.1);
+  border-color: var(--loreal-gold);
+}
+
+.landing-card .card-icon {
+  font-size: 2.4rem;
+  margin-bottom: 16px;
+}
+
+.landing-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.landing-card p {
+  color: #999;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.landing-stats {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  padding: 50px 2rem;
+  background: white;
+}
+
+.stat-box {
+  text-align: center;
+}
+
+.stat-box .stat-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--loreal-black);
+}
+
+.stat-box .stat-label {
+  font-size: 0.85rem;
+  color: var(--loreal-gray-dark);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 4px;
+}
+
+.landing-info {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 50px 2rem;
+  text-align: center;
+}
+
+.landing-info h2 {
+  font-size: 1.6rem;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.landing-info p {
+  color: var(--loreal-gray-dark);
+  line-height: 1.7;
+}
+
+.region-tags {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+.region-tag {
+  background: var(--loreal-black);
+  color: var(--loreal-gold);
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* ---- Page Containers ---- */
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+.page-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px 2rem;
+}
+
+/* ---- Page Header ---- */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.page-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* ---- Search Bar ---- */
+.search-container {
+  background: white;
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  margin-bottom: 24px;
+}
+
+.search-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.search-input-wrap {
+  flex: 1;
+  min-width: 250px;
+  position: relative;
+}
+
+.search-input-wrap input {
+  width: 100%;
+  padding: 12px 16px 12px 44px;
+  border: 2px solid var(--loreal-gray-mid);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: var(--transition);
+  outline: none;
+}
+
+.search-input-wrap input:focus {
+  border-color: var(--loreal-gold);
+}
+
+.search-input-wrap .search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  color: #aaa;
+}
+
+.filter-select {
+  padding: 12px 16px;
+  border: 2px solid var(--loreal-gray-mid);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background: white;
+  min-width: 160px;
+  outline: none;
+  cursor: pointer;
+}
+
+.filter-select:focus {
+  border-color: var(--loreal-gold);
+}
+
+.search-hint {
+  font-size: 0.82rem;
+  color: #999;
+  margin-top: 10px;
+}
+
+/* ---- Cards / Tables ---- */
+.card {
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--loreal-gray-mid);
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+/* ---- Product Grid ---- */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.product-card {
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px;
+  transition: var(--transition);
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.product-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--loreal-gold);
+}
+
+.product-card .product-brand {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--loreal-gold);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.product-card .product-name {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.product-card .product-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.85rem;
+  color: var(--loreal-gray-dark);
+}
+
+.product-card .product-meta .meta-row {
+  display: flex;
+  gap: 8px;
+}
+
+.product-card .product-meta .meta-label {
+  font-weight: 600;
+  min-width: 70px;
+}
+
+.product-card .doc-count {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--loreal-gray-mid);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.doc-badge {
+  background: var(--loreal-black);
+  color: var(--loreal-gold);
+  padding: 3px 12px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.doc-badge.empty {
+  background: var(--loreal-gray-mid);
+  color: var(--loreal-gray-dark);
+}
+
+.category-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.category-badge.skincare { background: #dbeafe; color: #1e40af; }
+.category-badge.haircare { background: #fce7f3; color: #9d174d; }
+.category-badge.makeup { background: #fef3c7; color: #92400e; }
+
+/* ---- Product Detail ---- */
+.product-detail-header {
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 30px;
+  margin-bottom: 24px;
+}
+
+.product-detail-header .back-link {
+  color: var(--loreal-gold);
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+  display: inline-block;
+  font-weight: 500;
+}
+
+.product-detail-header .back-link:hover {
+  text-decoration: underline;
+}
+
+.product-detail-header h2 {
+  font-size: 1.6rem;
+  margin-bottom: 4px;
+}
+
+.product-detail-header .detail-brand {
+  color: var(--loreal-gold);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.85rem;
+  margin-bottom: 12px;
+}
+
+.product-detail-meta {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+  color: var(--loreal-gray-dark);
+}
+
+.product-detail-meta strong {
+  color: var(--loreal-black);
+}
+
+/* ---- Documents Table ---- */
+.documents-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.documents-table th {
+  text-align: left;
+  padding: 12px 16px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--loreal-gray-dark);
+  border-bottom: 2px solid var(--loreal-gray-mid);
+  font-weight: 600;
+}
+
+.documents-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--loreal-gray);
+  font-size: 0.92rem;
+}
+
+.documents-table tr:hover {
+  background: var(--loreal-gray);
+}
+
+/* ---- Buttons ---- */
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--loreal-black);
+  color: var(--loreal-white);
+}
+
+.btn-primary:hover {
+  background: #333;
+}
+
+.btn-gold {
+  background: var(--loreal-gold);
+  color: var(--loreal-black);
+}
+
+.btn-gold:hover {
+  background: var(--loreal-gold-light);
+}
+
+.btn-sm {
+  padding: 6px 14px;
+  font-size: 0.82rem;
+}
+
+.btn-danger {
+  background: var(--accent-red);
+  color: white;
+}
+
+.btn-danger:hover {
+  background: #b91c1c;
+}
+
+.btn-download {
+  background: var(--accent-blue);
+  color: white;
+}
+
+.btn-download:hover {
+  background: #1d4ed8;
+}
+
+/* ---- Modal ---- */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal {
+  background: white;
+  border-radius: var(--radius);
+  width: 90%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+}
+
+.modal-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--loreal-gray-mid);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h3 {
+  font-size: 1.2rem;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #999;
+  padding: 4px;
+}
+
+.modal-body {
+  padding: 24px;
+}
+
+/* ---- Form ---- */
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #444;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 2px solid var(--loreal-gray-mid);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: var(--transition);
+  font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--loreal-gold);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+/* ---- Alert / Toast ---- */
+.toast {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  padding: 14px 24px;
+  border-radius: 8px;
+  color: white;
+  font-weight: 500;
+  z-index: 300;
+  animation: slideIn 0.3s ease;
+  box-shadow: var(--shadow-lg);
+}
+
+.toast.success { background: var(--accent-green); }
+.toast.error { background: var(--accent-red); }
+
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* ---- Empty State ---- */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+}
+
+.empty-state .empty-icon {
+  font-size: 3rem;
+  margin-bottom: 16px;
+}
+
+.empty-state p {
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+
+/* ---- File Size ---- */
+.file-size {
+  color: #999;
+  font-size: 0.82rem;
+}
+
+/* ---- Footer ---- */
+.footer {
+  background: var(--loreal-black);
+  color: #666;
+  text-align: center;
+  padding: 20px;
+  font-size: 0.82rem;
+  margin-top: 40px;
+}
+
+.footer span {
+  color: var(--loreal-gold);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .landing-hero h1 { font-size: 1.8rem; }
+  .landing-cards { flex-direction: column; align-items: center; }
+  .landing-stats { flex-direction: column; gap: 20px; align-items: center; }
+  .products-grid { grid-template-columns: 1fr; }
+  .form-row { flex-direction: column; }
+  .page-header { flex-direction: column; align-items: flex-start; }
+  .search-row { flex-direction: column; }
+  .product-detail-meta { flex-direction: column; gap: 8px; }
+  .top-nav { padding: 0 1rem; }
+  .nav-brand { font-size: 0.85rem; }
+  .documents-table { font-size: 0.82rem; }
+  .documents-table th, .documents-table td { padding: 10px 8px; }
+}

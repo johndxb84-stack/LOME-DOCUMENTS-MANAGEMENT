@@ -1,0 +1,6 @@
+node_modules/
+db/lome.db
+uploads/
+.env
+*.log
+.DS_Store
