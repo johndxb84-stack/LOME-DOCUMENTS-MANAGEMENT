@@ -72,22 +72,11 @@ body {
 .nav-brand {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
 }
 
-.nav-brand .brand-accent {
-  color: var(--loreal-gold);
-  font-weight: 800;
-}
-
-.nav-brand .brand-sub {
-  color: rgba(255,255,255,0.5);
-  font-weight: 500;
-  font-size: 0.85rem;
+.nav-logo {
+  height: 36px;
+  width: auto;
 }
 
 .nav-links {
@@ -466,8 +455,9 @@ body {
   left: 14px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 1.1rem;
   color: var(--text-tertiary);
+  display: flex;
+  align-items: center;
 }
 
 .filter-select {
@@ -1167,12 +1157,8 @@ body {
     gap: 10px;
   }
 
-  .nav-brand {
-    font-size: 0.85rem;
-  }
-
-  .nav-brand .brand-sub {
-    display: none;
+  .nav-logo {
+    height: 28px;
   }
 
   .documents-table {
