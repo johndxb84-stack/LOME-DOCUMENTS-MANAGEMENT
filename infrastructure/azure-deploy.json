@@ -1,0 +1,144 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "appName": {
+      "type": "string",
+      "defaultValue": "lome-documents",
+      "metadata": { "description": "Base name for all resources" }
+    },
+    "location": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]",
+      "metadata": { "description": "Azure region for resources" }
+    },
+    "sqlAdminLogin": {
+      "type": "string",
+      "metadata": { "description": "SQL Server admin username" }
+    },
+    "sqlAdminPassword": {
+      "type": "securestring",
+      "metadata": { "description": "SQL Server admin password" }
+    },
+    "jwtSecret": {
+      "type": "securestring",
+      "metadata": { "description": "JWT signing secret (min 32 characters)" }
+    }
+  },
+  "variables": {
+    "appServicePlanName": "[concat(parameters('appName'), '-plan')]",
+    "webAppName": "[concat(parameters('appName'), '-api')]",
+    "sqlServerName": "[concat(parameters('appName'), '-sql')]",
+    "sqlDbName": "lome_documents_db",
+    "storageAccountName": "[replace(concat(parameters('appName'), 'storage'), '-', '')]",
+    "staticWebAppName": "[concat(parameters('appName'), '-frontend')]"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Sql/servers",
+      "apiVersion": "2022-05-01-preview",
+      "name": "[variables('sqlServerName')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "administratorLogin": "[parameters('sqlAdminLogin')]",
+        "administratorLoginPassword": "[parameters('sqlAdminPassword')]"
+      },
+      "resources": [
+        {
+          "type": "databases",
+          "apiVersion": "2022-05-01-preview",
+          "name": "[variables('sqlDbName')]",
+          "location": "[parameters('location')]",
+          "dependsOn": ["[resourceId('Microsoft.Sql/servers', variables('sqlServerName'))]"],
+          "sku": {
+            "name": "S0",
+            "tier": "Standard"
+          },
+          "properties": {
+            "collation": "SQL_Latin1_General_CP1_CI_AS",
+            "maxSizeBytes": 2147483648
+          }
+        },
+        {
+          "type": "firewallRules",
+          "apiVersion": "2022-05-01-preview",
+          "name": "AllowAzureServices",
+          "dependsOn": ["[resourceId('Microsoft.Sql/servers', variables('sqlServerName'))]"],
+          "properties": {
+            "startIpAddress": "0.0.0.0",
+            "endIpAddress": "0.0.0.0"
+          }
+        }
+      ]
+    },
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "apiVersion": "2023-01-01",
+      "name": "[variables('storageAccountName')]",
+      "location": "[parameters('location')]",
+      "sku": { "name": "Standard_LRS" },
+      "kind": "StorageV2",
+      "properties": {
+        "supportsHttpsTrafficOnly": true,
+        "minimumTlsVersion": "TLS1_2"
+      }
+    },
+    {
+      "type": "Microsoft.Web/serverfarms",
+      "apiVersion": "2022-09-01",
+      "name": "[variables('appServicePlanName')]",
+      "location": "[parameters('location')]",
+      "sku": {
+        "name": "B1",
+        "tier": "Basic"
+      },
+      "kind": "linux",
+      "properties": {
+        "reserved": true
+      }
+    },
+    {
+      "type": "Microsoft.Web/sites",
+      "apiVersion": "2022-09-01",
+      "name": "[variables('webAppName')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]",
+        "[resourceId('Microsoft.Sql/servers/databases', variables('sqlServerName'), variables('sqlDbName'))]",
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+      ],
+      "properties": {
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]",
+        "siteConfig": {
+          "linuxFxVersion": "NODE|18-lts",
+          "appSettings": [
+            { "name": "DB_SERVER", "value": "[concat(variables('sqlServerName'), '.database.windows.net')]" },
+            { "name": "DB_NAME", "value": "[variables('sqlDbName')]" },
+            { "name": "DB_USER", "value": "[parameters('sqlAdminLogin')]" },
+            { "name": "DB_PASSWORD", "value": "[parameters('sqlAdminPassword')]" },
+            { "name": "AZURE_STORAGE_CONNECTION_STRING", "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2023-01-01').keys[0].value)]" },
+            { "name": "AZURE_STORAGE_CONTAINER", "value": "regulatory-documents" },
+            { "name": "JWT_SECRET", "value": "[parameters('jwtSecret')]" },
+            { "name": "NODE_ENV", "value": "production" },
+            { "name": "FRONTEND_URL", "value": "[concat('https://', variables('staticWebAppName'), '.azurestaticapps.net')]" }
+          ]
+        },
+        "httpsOnly": true
+      }
+    }
+  ],
+  "outputs": {
+    "apiUrl": {
+      "type": "string",
+      "value": "[concat('https://', variables('webAppName'), '.azurewebsites.net')]"
+    },
+    "sqlServer": {
+      "type": "string",
+      "value": "[concat(variables('sqlServerName'), '.database.windows.net')]"
+    },
+    "storageAccount": {
+      "type": "string",
+      "value": "[variables('storageAccountName')]"
+    }
+  }
+}
