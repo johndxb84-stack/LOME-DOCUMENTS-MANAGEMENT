@@ -4,51 +4,73 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LOME | Regulatory Documents Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
 
   <!-- ====== TOP NAVIGATION ====== -->
   <nav class="top-nav">
-    <div class="nav-brand">
-      <span class="brand-accent">L'ORÉAL</span> <span>MIDDLE EAST</span>
-    </div>
+    <a class="nav-brand" onclick="navigate('landing')" style="cursor:pointer;text-decoration:none;">
+      <img src="/assets/loreal-me-logo.svg" alt="L'Oréal Middle East" class="nav-logo">
+    </a>
     <div class="nav-links">
       <a onclick="navigate('landing')" data-page="landing">Home</a>
       <a onclick="navigate('admin')" data-page="admin">Admin Portal</a>
       <a onclick="navigate('distributor')" data-page="distributor">Distributor Portal</a>
     </div>
+    <button class="nav-toggle" onclick="this.closest('.top-nav').classList.toggle('nav-open')" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
   <!-- ====== LANDING PAGE ====== -->
   <div id="page-landing" class="page active">
     <div class="landing-hero">
+      <div class="hero-badge">Regulatory Affairs Platform</div>
       <h1>Regulatory <span>Documents</span> Portal</h1>
       <p class="subtitle">Centralized document management for GCC & Levant product registrations</p>
       <div class="landing-cards">
         <div class="landing-card" onclick="navigate('admin')">
-          <div class="card-icon">&#128274;</div>
+          <div class="card-icon-wrap admin-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
           <h3>Admin Portal</h3>
           <p>Manage product catalogue, upload regulatory documents (CoA, SDS, GMP, PIF, Halal certificates, and more) for your team.</p>
+          <span class="card-arrow">&rarr;</span>
         </div>
         <div class="landing-card" onclick="navigate('distributor')">
-          <div class="card-icon">&#128269;</div>
+          <div class="card-icon-wrap dist-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
           <h3>Distributor Portal</h3>
           <p>Search products by formula code or barcode. Download the documents you need for authority submissions.</p>
+          <span class="card-arrow">&rarr;</span>
         </div>
       </div>
     </div>
 
     <div class="landing-stats" id="landing-stats">
       <div class="stat-box">
+        <div class="stat-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        </div>
         <div class="stat-number" id="stat-products">-</div>
         <div class="stat-label">Products</div>
       </div>
       <div class="stat-box">
+        <div class="stat-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
         <div class="stat-number" id="stat-documents">-</div>
         <div class="stat-label">Documents</div>
       </div>
       <div class="stat-box">
+        <div class="stat-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </div>
         <div class="stat-number" id="stat-downloads">-</div>
         <div class="stat-label">Downloads</div>
       </div>
@@ -83,7 +105,7 @@
       <div class="search-container">
         <div class="search-row">
           <div class="search-input-wrap">
-            <span class="search-icon">&#128269;</span>
+            <span class="search-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
             <input type="text" id="admin-search" placeholder="Search products by name, formula code, or barcode..." oninput="loadAdminProducts()">
           </div>
           <select class="filter-select" id="admin-brand-filter" onchange="loadAdminProducts()">
@@ -137,7 +159,7 @@
       <div class="search-container">
         <div class="search-row">
           <div class="search-input-wrap">
-            <span class="search-icon">&#128269;</span>
+            <span class="search-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
             <input type="text" id="dist-search" placeholder="Enter product formula code, barcode, or name to search..." oninput="loadDistributorProducts()">
           </div>
           <select class="filter-select" id="dist-brand-filter" onchange="loadDistributorProducts()">
@@ -198,18 +220,51 @@
               <label>Brand *</label>
               <select name="brand" required>
                 <option value="">Select brand...</option>
-                <option>L'Oréal Paris</option>
-                <option>Garnier</option>
-                <option>Maybelline New York</option>
-                <option>NYX Professional Makeup</option>
-                <option>La Roche-Posay</option>
-                <option>Vichy</option>
-                <option>CeraVe</option>
-                <option>Kérastase</option>
-                <option>L'Oréal Professionnel</option>
-                <option>Lancôme</option>
-                <option>Yves Saint Laurent</option>
-                <option>Giorgio Armani</option>
+                <optgroup label="Consumer Products">
+                  <option>L'Oréal Paris</option>
+                  <option>Garnier</option>
+                  <option>Maybelline New York</option>
+                  <option>NYX Professional Makeup</option>
+                  <option>Essie</option>
+                  <option>Mixa</option>
+                </optgroup>
+                <optgroup label="L'Oréal Luxe">
+                  <option>Lancôme</option>
+                  <option>Yves Saint Laurent</option>
+                  <option>Armani Beauty</option>
+                  <option>Kiehl's</option>
+                  <option>Helena Rubinstein</option>
+                  <option>Biotherm</option>
+                  <option>Shu Uemura</option>
+                  <option>IT Cosmetics</option>
+                  <option>Urban Decay</option>
+                  <option>Ralph Lauren</option>
+                  <option>Mugler</option>
+                  <option>Azzaro</option>
+                  <option>Valentino</option>
+                  <option>Prada</option>
+                  <option>Viktor &amp; Rolf</option>
+                  <option>Maison Margiela</option>
+                  <option>Diesel</option>
+                  <option>Miu Miu</option>
+                  <option>Aesop</option>
+                  <option>Takami</option>
+                  <option>3CE Stylenanda</option>
+                </optgroup>
+                <optgroup label="Dermatological Beauty">
+                  <option>La Roche-Posay</option>
+                  <option>Vichy</option>
+                  <option>CeraVe</option>
+                  <option>SkinCeuticals</option>
+                </optgroup>
+                <optgroup label="Professional Products">
+                  <option>L'Oréal Professionnel</option>
+                  <option>Kérastase</option>
+                  <option>Redken</option>
+                  <option>Matrix</option>
+                  <option>Pureology</option>
+                  <option>Biolage</option>
+                </optgroup>
               </select>
             </div>
             <div class="form-group">
@@ -300,9 +355,13 @@
   </div>
 
   <!-- ====== FOOTER ====== -->
-  <div class="footer">
-    <span>L'ORÉAL</span> Middle East &mdash; Regulatory Documents Management System &mdash; Prototype v1.0
-  </div>
+  <footer class="footer">
+    <div class="footer-inner">
+      <span class="footer-brand"><span>L'ORÉAL</span> Middle East</span>
+      <span class="footer-sep">&middot;</span>
+      <span>Regulatory Documents Management System</span>
+    </div>
+  </footer>
 
   <script src="/js/app.js"></script>
 </body>
